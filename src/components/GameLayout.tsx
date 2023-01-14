@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import Grid from "../components/Grid"
 import { intialSetup, updateGrid } from "../utils/helperFunctions"
+import Modal from "./Modal"
 
 export default function GameLayout() {
   const [intervalId, setIntervalId] = useState<number | null>(null)
@@ -21,11 +22,6 @@ export default function GameLayout() {
     }
   }
 
-  function handleReset() {
-    setGeneration(0)
-    setGrid(intialSetup(gridSize))
-  }
-
   useEffect(() => {
     setGeneration((prev) => prev + 1)
   }, [grid])
@@ -41,28 +37,12 @@ export default function GameLayout() {
       <div className=" uppercase p-4">Generation: {generation} </div>
       <Grid grid={grid} />
 
-      <button
-        className="bg-blue-600 hover:bg-blue-800 shadow transition-all uppercase text-white 
-        font-bold py-2 px-4 rounded m-4"
-        onClick={handleReset}
-      >
-        Reset
-      </button>
-
-      // set grid gridSize
-        <div className="flex flex-col items-center">
-            <label className="uppercase">Grid Size</label>
-            <input
-                className="bg-blue-600 hover:bg-blue-800 shadow transition-all uppercase text-white 
-                font-bold py-2 px-4 rounded m-4 text-center"
-                type="number"
-                value={gridSize}
-                onChange={(e) => {
-                    setGridSize(Number(e.target.value))
-                }}
-            />
-        </div>
-
+      <Modal
+        setGridSize={setGridSize}
+        setGeneration={setGeneration}
+        setGrid={setGrid}
+        gridSize={gridSize}
+      />
     </>
   )
 }
