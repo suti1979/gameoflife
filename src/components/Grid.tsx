@@ -1,6 +1,6 @@
 export default function Grid({ grid }: { grid: number[][] }) {
 
-  return (<div className=" shadow-xl p-1 rounded bg-green-800 ">
+  return (<div className=" shadow-xl p-1 rounded bg-blue-800 ">
 
     {grid.map((row, i) => {
       return (
@@ -9,8 +9,8 @@ export default function Grid({ grid }: { grid: number[][] }) {
             return (
               <div
                 key={j}
-                className={`w-6 h-6 border border-green-900 ${
-                  cell ? "bg-green-500 " : "bg-blue-200"
+                className={`w-6 h-6 border border-blue-900 ${
+                  cell ? "bg-blue-500 " : "bg-blue-200"
                 }`}
               />
             )
