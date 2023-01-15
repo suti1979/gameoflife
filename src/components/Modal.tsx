@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { intialSetup } from "../utils/helperFunctions"
+import Settings from "../assets/settings.svg"
 
 type ModapProps = {
   setGridSize: (gridSize: number) => void
@@ -29,7 +30,9 @@ export default function Modal({
         font-bold py-2 px-4 rounded m-6"
         onClick={() => setShowModal(true)}
       >
-        SETTINGS
+        <span className="flex">
+          <img className="pr-2" src={Settings} alt="icon" /> SETTINGS
+        </span>
       </button>
       {showModal && (
         <div
@@ -55,16 +58,17 @@ export default function Modal({
                             sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
             >
               <div className="bg-blue-900  px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div className="sm:flex sm:items-start">
+                <div className="sm:flex sm:items-start justify-center">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <h3
-                      className="text-lg leading-6 font-medium text-white"
+                      className="text-lg leading-6 font-medium text-white text-center mb-12"
                       id="modal-title"
                     >
                       SETTINGS
                     </h3>
+                    <Slider />
                     <div className="mt-2">
-                      <p className="text-sm text-gray-100">
+                      <div className="text-sm text-gray-100">
                         <div className="flex flex-col items-center">
                           <label className="uppercase">Grid Size</label>
                           <input
@@ -77,7 +81,7 @@ export default function Modal({
                             }}
                           />
                         </div>
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -110,24 +114,28 @@ export default function Modal({
   )
 }
 
-{
-  /* <div class="relative pt-1">
-  <label for="customRange3" class="form-label">Example range</label>
-  <input
-    type="range"
-    class="
-      form-range
-      appearance-none
-      w-full
-      h-6
-      p-0
-      bg-transparent
-      focus:outline-none focus:ring-0 focus:shadow-none
-    "
-    min="0"
-    max="5"
-    step="0.5"
-    id="customRange3"
-  />
-</div> */
+function Slider() {
+  return (
+    <div className="relative pt-1">
+      <label htmlFor="customRange3" className="form-label">
+        Example range
+      </label>
+      <input
+        type="range"
+        className="
+          form-range      
+          w-full
+          h-6
+          p-0
+          bg-transparent
+          focus:outline-none focus:ring-0 focus:shadow-none
+        "
+        min="5"
+        max="15"
+        step="1"
+      />
+    </div>
+  )
 }
+
+

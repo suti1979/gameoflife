@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import Grid from "../components/Grid"
 import { intialSetup, updateGrid } from "../utils/helperFunctions"
 import Modal from "./Modal"
+import Start from "../assets/play.svg"
+import Pause from "../assets/pause.svg"
 
 export default function GameLayout() {
   const [intervalId, setIntervalId] = useState<number | null>(null)
@@ -32,7 +34,17 @@ export default function GameLayout() {
         className="bg-blue-600 hover:bg-blue-700 shadow transition-all uppercase text-white font-bold py-2 px-4 rounded m-4"
         onClick={handleStartStop}
       >
-        {intervalId ? "Stop" : "Start"}
+        {intervalId ? (
+          <span className="flex">
+            <img className="pr-2" src={Pause} alt="icon" />
+            Pause
+          </span>
+        ) : (
+          <span className="flex">
+            <img className="pr-2" src={Start} alt="icon" />
+            Start
+          </span>
+        )}
       </button>
       <div className=" uppercase p-4">Generation: {generation} </div>
       <Grid grid={grid} />
