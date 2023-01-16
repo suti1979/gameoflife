@@ -2,12 +2,15 @@ import { useState } from "react"
 import { intialSetup } from "../utils/helperFunctions"
 import Settings from "../assets/settings.svg"
 
-type ModapProps = {
+type SliderProps = {
   setGridSize: (gridSize: number) => void
-  setGeneration: (generation: number) => void
-  setGrid: (grid: number[][]) => void
   gridSize: number
 }
+
+type ModapProps = {
+  setGeneration: (generation: number) => void
+  setGrid: (grid: number[][]) => void
+} & SliderProps
 
 export default function Modal({
   setGridSize,
@@ -19,7 +22,19 @@ export default function Modal({
 
   function handleReset() {
     setGeneration(0)
-    setGrid(intialSetup(gridSize))
+    setGrid(intialSetup(gridSize, false))
+    setShowModal(false)
+  }
+
+  function handleClear() {
+    setGeneration(0)
+    setGrid(intialSetup(gridSize, false))
+    setShowModal(false)
+  }
+
+  function randomFirstGeneration() {
+    setGeneration(0)
+    setGrid(intialSetup(gridSize, true))
     setShowModal(false)
   }
 
@@ -58,7 +73,7 @@ export default function Modal({
                             sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
             >
               <div className="bg-blue-900  px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div className="sm:flex sm:items-start justify-center">
+                <div className="sm:flex sm:items-start ">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <h3
                       className="text-lg leading-6 font-medium text-white text-center mb-12"
@@ -66,22 +81,24 @@ export default function Modal({
                     >
                       SETTINGS
                     </h3>
-                    <Slider />
-                    <div className="mt-2">
-                      <div className="text-sm text-gray-100">
-                        <div className="flex flex-col items-center">
-                          <label className="uppercase">Grid Size</label>
-                          <input
-                            className=" w-48  bg-blue-600 hover:bg-blue-800 shadow transition-all uppercase text-white 
-                                font-bold py-2 rounded m-4 text-center "
-                            type="number"
-                            value={gridSize}
-                            onChange={(e) => {
-                              setGridSize(Number(e.target.value))
-                            }}
-                          />
-                        </div>
-                      </div>
+
+                    <Slider gridSize={gridSize} setGridSize={setGridSize} />
+
+                    <div className="flex justify-center flex-col">
+                      <button
+                        className="bg-blue-600 hover:bg-blue-800 shadow transition-all uppercase text-white
+                      font-bold py-2 px-4 rounded m-6"
+                        onClick={handleClear}
+                      >
+                        CLEAR ALL CELLS
+                      </button>
+                      <button
+                        className="bg-blue-600 hover:bg-blue-800 shadow transition-all uppercase text-white
+                      font-bold py-2 px-4 rounded m-6"
+                        onClick={randomFirstGeneration}
+                      >
+                        RANDOM FIRST GENERATION
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -114,28 +131,31 @@ export default function Modal({
   )
 }
 
-function Slider() {
+function Slider({ setGridSize, gridSize }: SliderProps) {
   return (
-    <div className="relative pt-1">
-      <label htmlFor="customRange3" className="form-label">
-        Example range
-      </label>
+    <div className="relative pt-1 text-center flex flex-col justify-center">
+      <label htmlFor="gridsize">Grid size: {gridSize}</label>
       <input
+        id="gridsize"
         type="range"
         className="
           form-range      
-          w-full
+          w-64
+          m-auto
           h-6
-          p-0
+          p-4
           bg-transparent
           focus:outline-none focus:ring-0 focus:shadow-none
+          
         "
+        defaultValue={gridSize}
+        onChange={(e) => {
+          setGridSize(Number(e.target.value))
+        }}
         min="5"
-        max="15"
+        max="45"
         step="1"
       />
     </div>
   )
 }
-
-

@@ -8,7 +8,7 @@ import Pause from "../assets/pause.svg"
 export default function GameLayout() {
   const [intervalId, setIntervalId] = useState<number | null>(null)
   const [generation, setGeneration] = useState<number>(0)
-  const [gridSize, setGridSize] = useState<number>(10)
+  const [gridSize, setGridSize] = useState<number>(30)
   const [grid, setGrid] = useState<number[][]>(intialSetup(gridSize))
 
   function handleStartStop() {
@@ -47,7 +47,7 @@ export default function GameLayout() {
         )}
       </button>
       <div className=" uppercase p-4">Generation: {generation} </div>
-      <Grid grid={grid} />
+      <Grid grid={grid} setGrid={setGrid}/>
 
       <Modal
         setGridSize={setGridSize}

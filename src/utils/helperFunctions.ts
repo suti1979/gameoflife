@@ -29,13 +29,19 @@ export function updateGrid(grid: number[][]) {
   return newGrid
 }
 
-export function intialSetup(gridSize: number) {
+export function intialSetup(gridSize: number, random?: boolean) {
   let grid: number[][] = new Array(gridSize)
+  
   for (let i = 0; i < grid.length; i++) {
     grid[i] = new Array(gridSize)
     for (let j = 0; j < grid[i].length; j++) {
-      grid[i][j] = Math.random() > 0.5 ? 1 : 0
+      if (random) {
+        grid[i][j] = Math.random() > 0.5 ? 1 : 0
+      } else {
+        grid[i][j] = 0
+      }
     }
   }
+
   return grid
 }
