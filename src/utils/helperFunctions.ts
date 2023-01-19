@@ -29,9 +29,9 @@ export function updateGrid(grid: number[][]) {
   return newGrid
 }
 
-export function intialSetup(gridSize: number, random?: boolean) {
+export function randomSetup(gridSize: number, random?: boolean) {
   let grid: number[][] = new Array(gridSize)
-  
+
   for (let i = 0; i < grid.length; i++) {
     grid[i] = new Array(gridSize)
     for (let j = 0; j < grid[i].length; j++) {

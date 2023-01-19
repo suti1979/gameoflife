@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react"
 import Grid from "../components/Grid"
-import { intialSetup, updateGrid } from "../utils/helperFunctions"
+import { updateGrid } from "../utils/helperFunctions"
 import Modal from "./Modal"
 import Start from "../assets/play.svg"
 import Pause from "../assets/pause.svg"
+import { useGameCtx } from "../contexts/GameContext"
+
+// Todo: no generation count on click, game end, godmode
 
 export default function GameLayout() {
   const [intervalId, setIntervalId] = useState<number | null>(null)
-  const [generation, setGeneration] = useState<number>(0)
-  const [gridSize, setGridSize] = useState<number>(30)
-  const [grid, setGrid] = useState<number[][]>(intialSetup(gridSize))
+  const { generation, setGeneration, grid, setGrid } =
+    useGameCtx()
 
   function handleStartStop() {
     if (intervalId) {
@@ -47,14 +49,10 @@ export default function GameLayout() {
         )}
       </button>
       <div className=" uppercase p-4">Generation: {generation} </div>
-      <Grid grid={grid} setGrid={setGrid}/>
 
-      <Modal
-        setGridSize={setGridSize}
-        setGeneration={setGeneration}
-        setGrid={setGrid}
-        gridSize={gridSize}
-      />
+      <Grid />
+
+      <Modal />
     </>
   )
 }

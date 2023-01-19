@@ -1,40 +1,27 @@
 import { useState } from "react"
-import { intialSetup } from "../utils/helperFunctions"
+import { randomSetup } from "../utils/helperFunctions"
 import Settings from "../assets/settings.svg"
+import { useGameCtx } from "../contexts/GameContext"
 
-type SliderProps = {
-  setGridSize: (gridSize: number) => void
-  gridSize: number
-}
-
-type ModapProps = {
-  setGeneration: (generation: number) => void
-  setGrid: (grid: number[][]) => void
-} & SliderProps
-
-export default function Modal({
-  setGridSize,
-  setGeneration,
-  setGrid,
-  gridSize,
-}: ModapProps) {
+export default function Modal() {
   const [showModal, setShowModal] = useState(false)
+  const { gridSize, setGeneration, setGrid } = useGameCtx()
 
-  function handleReset() {
+  const handleReset = () => {
     setGeneration(0)
-    setGrid(intialSetup(gridSize, false))
+    setGrid(randomSetup(gridSize, false))
     setShowModal(false)
   }
 
-  function handleClear() {
+  const handleClear = () => {
     setGeneration(0)
-    setGrid(intialSetup(gridSize, false))
+    setGrid(randomSetup(gridSize, false))
     setShowModal(false)
   }
 
-  function randomFirstGeneration() {
+  const randomFirstGeneration = () => {
     setGeneration(0)
-    setGrid(intialSetup(gridSize, true))
+    setGrid(randomSetup(gridSize, true))
     setShowModal(false)
   }
 
@@ -82,7 +69,7 @@ export default function Modal({
                       SETTINGS
                     </h3>
 
-                    <Slider gridSize={gridSize} setGridSize={setGridSize} />
+                    <Slider />
 
                     <div className="flex justify-center flex-col">
                       <button
@@ -131,7 +118,9 @@ export default function Modal({
   )
 }
 
-function Slider({ setGridSize, gridSize }: SliderProps) {
+function Slider() {
+  const { gridSize, setGridSize } = useGameCtx()
+
   return (
     <div className="relative pt-1 text-center flex flex-col justify-center">
       <label htmlFor="gridsize">Grid size: {gridSize}</label>
