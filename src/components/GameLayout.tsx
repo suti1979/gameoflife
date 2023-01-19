@@ -48,8 +48,9 @@ export default function GameLayout() {
           </span>
         )}
       </button>
-      <div className=" uppercase p-4">Generation: {generation} </div>
+      <div className=" uppercase p-4 ">Generation: {generation} </div>
 
+ 
       <Grid />
 
       <Modal />

@@ -1,12 +1,13 @@
 import { useGameCtx } from "../contexts/GameContext"
 
 export default function Grid() {
-  const { grid, setGrid } = useGameCtx()
+  const { grid, setGrid, setGeneration } = useGameCtx()
 
   function toggleCell(i: number, j: number) {
     const newGrid = [...grid]
     newGrid[i][j] = newGrid[i][j] ? 0 : 1
     setGrid(newGrid)
+    setGeneration(0)
   }
 
   return (
