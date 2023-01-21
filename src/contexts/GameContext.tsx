@@ -8,6 +8,8 @@ type Gameoflife = {
   setGridSize: React.Dispatch<React.SetStateAction<number>>
   grid: number[][]
   setGrid: React.Dispatch<React.SetStateAction<number[][]>>
+  godmode: boolean
+  setGodmode: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 type ProviderProps = {
@@ -21,6 +23,7 @@ export default function GameProvider({ children }: ProviderProps) {
   const [generation, setGeneration] = useState<number>(0)
   const [gridSize, setGridSize] = useState<number>(30)
   const [grid, setGrid] = useState<number[][]>(randomSetup(gridSize))
+  const [godmode, setGodmode] = useState<boolean>(false)
 
   const value: Gameoflife = {
     generation,
@@ -29,6 +32,8 @@ export default function GameProvider({ children }: ProviderProps) {
     setGridSize,
     grid,
     setGrid,
+    godmode,
+    setGodmode,
   }
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>

@@ -6,14 +6,12 @@ import Start from "../assets/play.svg"
 import Pause from "../assets/pause.svg"
 import { useGameCtx } from "../contexts/GameContext"
 
-// Todo: no generation count on click, game end, godmode
-
 export default function GameLayout() {
   const [intervalId, setIntervalId] = useState<number | null>(null)
   const { generation, setGeneration, grid, setGrid } =
     useGameCtx()
 
-  function handleStartStop() {
+  const handleStartStop = () => {
     if (intervalId) {
       clearInterval(intervalId)
       setIntervalId(null)
@@ -50,8 +48,7 @@ export default function GameLayout() {
       </button>
       <div className=" uppercase p-4 ">Generation: {generation} </div>
 
- 
-      <Grid />
+      <Grid intervalId={intervalId} />
 
       <Modal />
     </>

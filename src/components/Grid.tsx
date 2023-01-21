@@ -1,13 +1,18 @@
 import { useGameCtx } from "../contexts/GameContext"
 
-export default function Grid() {
-  const { grid, setGrid, setGeneration } = useGameCtx()
+type GridProps = {
+  intervalId: number | null
+}
+
+export default function Grid({ intervalId }: GridProps) {
+  const { grid, setGrid, setGeneration, godmode, generation } = useGameCtx()
 
   function toggleCell(i: number, j: number) {
+    if ((!godmode && generation > 1) || intervalId) return
     const newGrid = [...grid]
     newGrid[i][j] = newGrid[i][j] ? 0 : 1
     setGrid(newGrid)
-    setGeneration(0)
+    if (generation <= 1) setGeneration(0)
   }
 
   return (
@@ -20,9 +25,8 @@ export default function Grid() {
                 <div
                   key={j}
                   onClick={() => toggleCell(i, j)}
-                  className={`w-3 h-3 border border-blue-900 hover:bg-blue-400 ${
-                    cell ? "bg-blue-500 " : "bg-blue-200"
-                  }`}
+                  className={`w-3 h-3 border border-blue-900 hover:bg-blue-400 
+                  ${cell ? "bg-blue-500 " : "bg-blue-200"}`}
                 />
               )
             })}
