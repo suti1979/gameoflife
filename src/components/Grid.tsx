@@ -16,7 +16,7 @@ export default function Grid({ intervalId }: GridProps) {
   }
 
   return (
-    <div className=" shadow-xl p-1 rounded bg-blue-800 ">
+    <div className=" shadow-xl p-1 rounded bg-blue-800 cursor-pointer">
       {grid.map((row, i) => {
         return (
           <div key={i} className="flex">

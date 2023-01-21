@@ -1,22 +1,31 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { randomSetup } from "../utils/helperFunctions"
 import Settings from "../assets/settings.svg"
 import { useGameCtx } from "../contexts/GameContext"
 import Slider from "./Slider"
+import Toggle from "./Toggle"
 
-export default function Modal() {
+type ModalProps = {
+  intervalId: number | null
+  setIntervalId: React.Dispatch<React.SetStateAction<number | null>>
+}
+
+export default function Modal({ intervalId, setIntervalId }: ModalProps) {
   const [showModal, setShowModal] = useState(false)
   const { gridSize, setGeneration, setGrid, setGodmode, godmode } = useGameCtx()
+
+  useEffect(() => {
+    // pause game when modal is open
+    if (intervalId) {
+      clearInterval(intervalId)
+      setIntervalId(null)
+    }
+  }, [showModal])
 
   const handleReset = () => {
     setGeneration(0)
     setGrid(randomSetup(gridSize, false))
     setShowModal(false)
-  }
-
-  const handleClear = () => {
-    setGeneration(0)
-    setGrid(randomSetup(gridSize, false))
   }
 
   const randomFirstGeneration = () => {
@@ -64,24 +73,9 @@ export default function Modal() {
 
                     <Slider />
 
-                    <label className="relative flex justify-center items-center group p-2 text-xl align-baseline pt-4">
-                      <span className=" pr-2 mb-2">😇</span>GodMode
-                      <input
-                        type="checkbox"
-                        checked={godmode}
-                        className="absolute left-1/2 -translate-x-1/2 w-full h-full peer appearance-none rounded-md"
-                        onChange={() => setGodmode((prev) => !prev)}
-                      />
-                      <span className="w-16 h-10 flex items-center flex-shrink-0 ml-4 p-1 bg-gray-300 rounded-full duration-300 ease-in-out peer-checked:bg-blue-600 after:w-8 after:h-8 after:bg-white after:rounded-full after:shadow-md after:duration-300 peer-checked:after:translate-x-6 group-hover:after:translate-x-1"></span>
-                    </label>
+                    <Toggle godmode={godmode} setGodmode={setGodmode} />
 
                     <div className="flex justify-center flex-col">
-                      <button
-                        className="bg-blue-600 hover:bg-blue-800 shadow transition-all uppercase text-white font-bold py-2 px-4 rounded m-4"
-                        onClick={handleClear}
-                      >
-                        CLEAR ALL CELLS
-                      </button>
                       <button
                         className="bg-blue-600 hover:bg-blue-800 shadow transition-all uppercase text-white font-bold py-2 px-4 rounded m-4"
                         onClick={randomFirstGeneration}
@@ -95,14 +89,14 @@ export default function Modal() {
               <div className="bg-blue-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
                   type="button"
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-blue-700 shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="transition-all mb-3 sm:mb-0 w-full inline-flex justify-center rounded-md border border-green-700 shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => setShowModal(false)}
                 >
                   DONE
                 </button>
                 <button
                   type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="transition-all sm:mb-0 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={handleReset}
                 >
                   RESET

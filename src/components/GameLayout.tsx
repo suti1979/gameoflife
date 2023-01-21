@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Grid from "../components/Grid"
-import { updateGrid } from "../utils/helperFunctions"
+import { updateGrid, checkEnd } from "../utils/helperFunctions"
 import Modal from "./Modal"
 import Start from "../assets/play.svg"
 import Pause from "../assets/pause.svg"
@@ -8,10 +8,14 @@ import { useGameCtx } from "../contexts/GameContext"
 
 export default function GameLayout() {
   const [intervalId, setIntervalId] = useState<number | null>(null)
-  const { generation, setGeneration, grid, setGrid } =
-    useGameCtx()
+  const { generation, setGeneration, grid, setGrid } = useGameCtx()
 
   const handleStartStop = () => {
+    if (generation <= 1 && checkEnd(grid)) {
+      alert("You need to start with at least one cell alive or choose a random grid from settings.")
+      return
+    }
+
     if (intervalId) {
       clearInterval(intervalId)
       setIntervalId(null)
@@ -46,11 +50,11 @@ export default function GameLayout() {
           </span>
         )}
       </button>
-      <div className=" uppercase p-4 ">Generation: {generation} </div>
+      <div className="uppercase p-4">Generation: {generation} </div>
 
       <Grid intervalId={intervalId} />
 
-      <Modal />
+      <Modal intervalId={intervalId} setIntervalId={setIntervalId} />
     </>
   )
 }

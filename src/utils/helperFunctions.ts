@@ -13,6 +13,17 @@ export function countLiveNeighbors(grid: number[][], i: number, j: number) {
   return count
 }
 
+export function checkEnd(grid: number[][]) {
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[i].length; j++) {
+      if (grid[i][j] === 1) {
+        return false
+      }
+    }
+  }
+  return true
+}
+
 export function updateGrid(grid: number[][]) {
   let newGrid = new Array(grid.length)
   for (let i = 0; i < grid.length; i++) {
