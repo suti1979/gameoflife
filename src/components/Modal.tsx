@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import style from "./Modal.module.scss"
 
 type FooterProps = {
   children: ReactNode
@@ -31,9 +32,9 @@ export function Modal({ children, title, setShowModal }: ModalProps) {
           &#8203;
         </span>
         <div className="inline-block align-bottom bg-blue-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div className="bg-blue-900  px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div className="sm:flex sm:items-start ">
-                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+              <div className="bg-blue-900 pt-5 sm:p-0 pb-0">
+                <div className="flex-end sm:items-start ">
+                  <div className="mt-3 text-center sm:mt-3  sm:text-left">
                 <h3
                   className="text-lg leading-6 font-medium text-white text-center mb-12"
                   id="modal-title"
@@ -45,7 +46,6 @@ export function Modal({ children, title, setShowModal }: ModalProps) {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   )
