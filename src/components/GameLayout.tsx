@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import Grid from "../components/Grid"
 import { updateGrid, checkEnd } from "../utils/helperFunctions"
-import Modal from "./Modal"
+import Setup from "./Setup"
 import Start from "../assets/play.svg"
 import Pause from "../assets/pause.svg"
 import { useGameCtx } from "../contexts/GameContext"
@@ -54,7 +54,7 @@ export default function GameLayout() {
 
       <Grid intervalId={intervalId} />
 
-      <Modal intervalId={intervalId} setIntervalId={setIntervalId} />
+      <Setup intervalId={intervalId} setIntervalId={setIntervalId} />
     </>
   )
 }
