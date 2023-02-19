@@ -31,18 +31,21 @@ export function Modal({ children, title, setShowModal }: ModalProps) {
           &#8203;
         </span>
         <div className="inline-block align-bottom bg-blue-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-          <div className="sm:flex sm:items-start ">
-            <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-              <h3
-                className="text-lg leading-6 font-medium text-white text-center mb-12"
-                id="modal-title"
-              >
-                <span className="uppercase">{title}</span>
-              </h3>
-              {children}
+              <div className="bg-blue-900  px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start ">
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                <h3
+                  className="text-lg leading-6 font-medium text-white text-center mb-12"
+                  id="modal-title"
+                >
+                  <span className="uppercase">{title}</span>
+                </h3>
+                {children}
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   )
@@ -50,7 +53,7 @@ export function Modal({ children, title, setShowModal }: ModalProps) {
 
 Modal.Footer = function ({ children }: FooterProps) {
   return (
-    <div className="py-3 flex sm:px-6 sm:flex sm:flex-row-reverse">
+    <div className="bg-blue-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
       {children}
     </div>
   )
