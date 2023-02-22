@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Grid from "../components/Grid"
-import { updateGrid, checkEnd } from "../utils/helperFunctions"
+import { updateGrid, checkEnd } from "../utils/gameLogic"
 import Setup from "./Setup"
 import Start from "../assets/play.svg"
 import Pause from "../assets/pause.svg"
@@ -21,7 +21,7 @@ export default function GameLayout() {
       setIntervalId(null)
     } else {
       setIntervalId(
-        setInterval(() => {
+        window.setInterval(() => {
           setGrid((grid) => updateGrid(grid))
         }, 500)
       )

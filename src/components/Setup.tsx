@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { randomSetup } from "../utils/helperFunctions"
+import { randomSetup } from "../utils/gameLogic"
 import Settings from "../assets/settings.svg"
 import { useGameCtx } from "../contexts/GameContext"
 import Slider from "./Slider"

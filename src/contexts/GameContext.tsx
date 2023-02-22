@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react"
-import { randomSetup } from "../utils/helperFunctions"
+import { randomSetup } from "../utils/gameLogic"
 
 type Gameoflife = {
   generation: number
